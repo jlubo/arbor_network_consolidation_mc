@@ -1,0 +1,9 @@
+#!/bin/bash
+
+current_working_dir=${PWD}
+
+cd tmp/build
+#rsync -a --exclude '*.mod' ../mod/* generated/custom/ #for raw mechanisms
+make
+rsync -a custom-catalogue.so ../../
+cd ../..

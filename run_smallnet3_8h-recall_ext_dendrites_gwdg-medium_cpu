@@ -1,0 +1,32 @@
+#!/bin/bash
+#SBATCH -J arbor_net
+#SBATCH -t 48:00:00
+#SBATCH -p medium
+#SBATCH -n 1
+#SBATCH -c 1
+#~
+#SBATCH -o out/%J_out
+#SBATCH -o out/%J_err
+#--SBATCH --qos=long
+#--SBATCH -C scratch
+#SBATCH -C cascadelake
+
+# prepare environment
+module load miniforge3
+source activate myenv_arbor
+#~
+
+# build necessary catalogue (also sets the environment to run custom Arbor installation)
+source build_catalogue_cluster
+
+# diffusivity of the plasticity-related proteins
+D_pc=$1
+
+# gather job information
+add_info="Job ID: ${SLURM_JOB_ID}; partition: ${SLURM_JOB_PARTITION}; num. nodes: ${SLURM_JOB_NUM_NODES}; num. CPUs: ${SLURM_JOB_CPUS_PER_NODE}"
+
+# run the simulation with standard parameters
+python3 ./arborNetworkConsolidationMultiComp.py -s_desc="smallnet3 det, dt=0.2ms, 8h, with recall, ${D_pc}, ${SLURM_JOB_PARTITION} CPU" -D_pc=${D_pc} -runtime=28820 -dt=0.2 -learn='{"time_start": 10, "scheme": "TRIPLET", "freq": 100, "N_stim": 25}' -recall='{"time_start": 28810, "scheme": "ONEPULSE", "freq": 100, "N_stim": 25}' -config_file="config_smallnet3_det_ext_dendrites.json" -sample_curr=0 -plot=0
+# -add_info="${add_info}"
+
+conda deactivate

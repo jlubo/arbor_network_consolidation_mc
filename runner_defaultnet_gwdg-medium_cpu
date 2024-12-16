@@ -1,0 +1,50 @@
+#!/bin/bash
+
+num_trials=50
+
+for (( i=1; i <= $num_trials; ++i ))
+do
+	# 10s-recall, neurons with small dendrites
+	sbatch run_defaultnet_10s-recall_small_dendrites_gwdg-medium_cpu 100 $i
+	sbatch run_defaultnet_10s-recall_small_dendrites_gwdg-medium_cpu 150 $i
+	sbatch run_defaultnet_10s-recall_small_dendrites_gwdg-medium_cpu 200 $i
+	sbatch run_defaultnet_10s-recall_small_dendrites_gwdg-medium_cpu 250 $i
+
+	# 10s-recall, neurons with extended dendrites
+	sbatch run_defaultnet_10s-recall_ext_dendrites_gwdg-medium_cpu 100 $i
+	sbatch run_defaultnet_10s-recall_ext_dendrites_gwdg-medium_cpu 150 $i
+	sbatch run_defaultnet_10s-recall_ext_dendrites_gwdg-medium_cpu 200 $i
+	sbatch run_defaultnet_10s-recall_ext_dendrites_gwdg-medium_cpu 250 $i
+
+	# 8h-recall, neurons with small dendrites (formerly control)
+	sbatch run_defaultnet_8h-recall_small_dendrites_gwdg-medium_cpu 100 1.0e-4 $i
+	sbatch run_defaultnet_8h-recall_small_dendrites_gwdg-medium_cpu 150 1.0e-4 $i
+	sbatch run_defaultnet_8h-recall_small_dendrites_gwdg-medium_cpu 200 1.0e-4 $i
+	sbatch run_defaultnet_8h-recall_small_dendrites_gwdg-medium_cpu 250 1.0e-4 $i
+
+	sbatch run_defaultnet_8h-recall_small_dendrites_gwdg-medium_cpu 100 1.0e-8 $i
+	sbatch run_defaultnet_8h-recall_small_dendrites_gwdg-medium_cpu 150 1.0e-8 $i
+	sbatch run_defaultnet_8h-recall_small_dendrites_gwdg-medium_cpu 200 1.0e-8 $i
+	sbatch run_defaultnet_8h-recall_small_dendrites_gwdg-medium_cpu 250 1.0e-8 $i
+
+	sbatch run_defaultnet_8h-recall_small_dendrites_gwdg-medium_cpu 100 1.0e-12 $i
+	sbatch run_defaultnet_8h-recall_small_dendrites_gwdg-medium_cpu 150 1.0e-12 $i
+	sbatch run_defaultnet_8h-recall_small_dendrites_gwdg-medium_cpu 200 1.0e-12 $i
+	sbatch run_defaultnet_8h-recall_small_dendrites_gwdg-medium_cpu 250 1.0e-12 $i
+
+	# 8h-recall, neurons with extended dendrites
+	sbatch run_defaultnet_8h-recall_ext_dendrites_gwdg-medium_cpu 100 1.0e-4 $i
+	sbatch run_defaultnet_8h-recall_ext_dendrites_gwdg-medium_cpu 150 1.0e-4 $i
+	sbatch run_defaultnet_8h-recall_ext_dendrites_gwdg-medium_cpu 200 1.0e-4 $i
+	sbatch run_defaultnet_8h-recall_ext_dendrites_gwdg-medium_cpu 250 1.0e-4 $i
+
+	sbatch run_defaultnet_8h-recall_ext_dendrites_gwdg-medium_cpu 100 1.0e-8 $i
+	sbatch run_defaultnet_8h-recall_ext_dendrites_gwdg-medium_cpu 150 1.0e-8 $i
+	sbatch run_defaultnet_8h-recall_ext_dendrites_gwdg-medium_cpu 200 1.0e-8 $i
+	sbatch run_defaultnet_8h-recall_ext_dendrites_gwdg-medium_cpu 250 1.0e-8 $i
+
+	sbatch run_defaultnet_8h-recall_ext_dendrites_gwdg-medium_cpu 100 1.0e-12 $i
+	sbatch run_defaultnet_8h-recall_ext_dendrites_gwdg-medium_cpu 150 1.0e-12 $i
+	sbatch run_defaultnet_8h-recall_ext_dendrites_gwdg-medium_cpu 200 1.0e-12 $i
+	sbatch run_defaultnet_8h-recall_ext_dendrites_gwdg-medium_cpu 250 1.0e-12 $i
+done

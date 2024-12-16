@@ -1,0 +1,34 @@
+#!/bin/bash
+#SBATCH -J 8h_small
+#SBATCH -t 48:00:00
+#SBATCH -p medium
+#SBATCH -n 1
+#SBATCH -c 1
+#~
+#SBATCH -o out/%J_out
+#SBATCH -o out/%J_err
+#--SBATCH --qos=long
+#--SBATCH -C scratch
+#SBATCH -C cascadelake
+
+# prepare environment
+module load miniforge3
+source activate myenv_arbor
+#~
+
+# build necessary catalogue (also sets the environment to run custom Arbor installation)
+source build_catalogue
+
+# cell assembly size
+N_CA=$1
+
+# diffusivity of the plasticity-related proteins
+D_pc=$2
+
+# gather job information
+add_info="Job ID: ${SLURM_JOB_ID}; partition: ${SLURM_JOB_PARTITION}; num. nodes: ${SLURM_JOB_NUM_NODES}; num. CPUs: ${SLURM_JOB_CPUS_PER_NODE}"
+
+# run the simulations
+python3 ./arborNetworkConsolidationMultiComp.py -s_desc="net CA${N_CA} 8h-recall (small dendrites, ${D_pc}) ${SLURM_JOB_PARTITION} CPU $3" -N_CA=${N_CA} -D_pc=${D_pc} -runtime=28820 -recall='{"time_start": 28810, "scheme": "ONEPULSE", "freq": 100, "N_stim": 25}' -config_file="config_defaultnet-like_small_dendrites.json" -output_period=10 -plot=0
+
+conda deactivate

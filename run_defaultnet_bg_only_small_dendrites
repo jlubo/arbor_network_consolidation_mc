@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# build necessary catalogue (also sets the environment to run custom Arbor installation)
+source build_catalogue
+
+# run the simulation
+python3 ./arborNetworkConsolidationMultiComp.py -s_desc="bg no stim" -runtime=1 -config_file="config_defaultnet_small_dendrites.json" -learn='{}' -recall='{}' -sample_gid=68 -sample_presyn_gid=6 -output_period=1 -sample_curr=0

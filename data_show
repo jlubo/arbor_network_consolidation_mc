@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+
+echo "Data folders here: "
+ls -al . | grep -c "data_2*" 
+echo "Data folders 10s-recall (ext. dendrites): "
+ls -al extract_10s-recall_ext_dendrites/ | grep -c "data_2*"
+echo "Data folders 10s-recall (small dendrites): "
+ls -al extract_10s-recall_small_dendrites/ | grep -c "data_2*"
+echo "Data folders 8h-recall (ext. dendrites): "
+ls -al extract_8h-recall_ext_dendrites/ | grep -c "data_2*"
+echo "Data folders 8h-recall (small dendrites): "
+ls -al extract_8h-recall_small_dendrites/ | grep -c "data_2*"

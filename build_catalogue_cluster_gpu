@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# prepare environment
+module load miniforge3
+source activate myenv_arbor
+
+# set environment variables required to run custom Arbor installation
+source set_arbor_env_gpu
+
+# compile the mechanisms and build the catalogue
+#rm -R -f ./tmp
+#arbor-build-catalogue custom mechanisms --debug "./tmp"
+arbor-build-catalogue custom mechanisms
+
+conda deactivate

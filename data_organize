@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+mv data_2*"10s-recall ("*"ext. dendrites"* extract_10s-recall_ext_dendrites/
+mv data_2*"10s-recall ("*"small dendrites"* extract_10s-recall_small_dendrites/
+mv data_2*"8h-recall ("*"ext. dendrites"* extract_8h-recall_ext_dendrites/
+mv data_2*"8h-recall ("*"small dendrites"* extract_8h-recall_small_dendrites/
+
+source data_show

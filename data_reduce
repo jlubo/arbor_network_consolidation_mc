@@ -1,0 +1,5 @@
+#!/bin/sh
+
+head *_traces.txt > traces_reduced.txt
+awk 'NR % 100 == 0' *_traces.txt >> traces_reduced.txt
+tail *_traces.txt >> traces_reduced.txt

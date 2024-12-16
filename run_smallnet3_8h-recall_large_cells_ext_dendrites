@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# build necessary catalogue (also sets the environment to run custom Arbor installation)
+source build_catalogue
+
+# diffusivity of the plasticity-related proteins
+D_pc=$1
+if [ -z "$D_pc" ]; then
+    D_pc=1e-4
+    echo "Setting D_pc=${D_pc}"
+fi
+
+# run the simulations with standard parameters
+python3.10 ./arborNetworkConsolidationMultiComp.py -D_pc=${D_pc} -runtime=28820 -learn='{"time_start": 10, "scheme": "TRIPLET", "freq": 100, "N_stim": 25}' -recall='{"time_start": 28810, "scheme": "ONEPULSE", "freq": 100, "N_stim": 25}' -s_desc="smallnet3 det, dt=0.2ms, 8h, with recall (large cells, ext. dendrites, ${D_pc})" -dt=0.2 -config_file="config_smallnet3_det_large_cells_ext_dendrites.json" -sample_curr=0

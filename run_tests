@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# build necessary catalogue (also sets the environment to run custom Arbor installation)
+#source build_catalogue
+#source build_catalogue_simd
+#source build_catalogue_gpu
+source build_catalogue_gpu-use_gpu_rng
+
+# clean up
+#rm -R -f tmp_data_*
+
+# run specific tests (add `-s` for console output)
+#python3 -m pytest ./test_arborNetworkConsolidationMultiComp.py::test_def_const_conv_relax
+#python3 -m pytest ./test_arborNetworkConsolidationMultiComp.py::test_smallnet2_basic_early
+#python3 -m pytest ./test_arborNetworkConsolidationMultiComp.py::test_smallnet2_basic_late
+#python3 -m pytest ./test_arborNetworkConsolidationMultiComp.py::test_generated_connectivity
+#python3.10 -m pytest ./test_arborNetworkConsolidationMultiComp.py::test_smallnetX_onespike
+#python3 -m pytest ./test_arborNetworkConsolidationMultiComp.py::test_smallnet3_schedules
+
+# run all tests with coverage (send output to terminal and file, using tee with unbuffer)
+unbuffer python3.10 -m coverage run -m pytest ./test_arborNetworkConsolidationMultiComp.py | tee -i test_result.txt
+
+# line coverage output
+python3.10 -m coverage report -m --omit=/usr/*,**/lib/python*/* > test_coverage.txt

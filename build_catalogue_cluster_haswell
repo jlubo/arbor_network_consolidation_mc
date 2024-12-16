@@ -1,0 +1,23 @@
+#!/bin/bash
+#SBATCH -J build
+#SBATCH -t 48:00:00
+#SBATCH -p fat
+#SBATCH -n 1
+#SBATCH -c 1
+#SBATCH -C haswell
+#SBATCH -o out/%J_out
+#SBATCH -o out/%J_err
+
+# prepare environment
+module load miniforge3
+source activate myenv_arbor
+
+# set environment variables required to run custom Arbor installation
+source set_arbor_env_haswell
+
+# compile the mechanisms and build the catalogue
+#rm -R -f ./tmp
+#arbor-build-catalogue custom-haswell mechanisms #--debug "./tmp"
+arbor-build-catalogue custom-haswell mechanisms
+
+conda deactivate

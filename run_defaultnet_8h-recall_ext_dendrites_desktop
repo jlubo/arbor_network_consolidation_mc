@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# build necessary catalogue (also sets the environment to run custom Arbor installation)
+source build_catalogue
+
+# number of trials
+num_trials=10
+
+# cell assembly size
+N_CA=$1
+
+# diffusivity of the plasticity-related proteins
+D_pc=$2
+
+# run the simulations
+for (( i=1; i <= $num_trials; ++i ))
+do
+    python3 ./arborNetworkConsolidationMultiComp.py -s_desc="net CA${N_CA} 8h-recall (ext. dendrites, ${D_pc})" -N_CA=${N_CA} -D_pc=${D_pc} -runtime=28820 -recall='{"time_start": 28810, "scheme": "ONEPULSE", "freq": 100, "N_stim": 25}' -config_file="config_defaultnet-like_ext_dendrites.json" -output_period=10
+done
